@@ -12,4 +12,8 @@ public interface Constants {
 
     final public static String MESSAGE = "ro.pub.cs.systems.eim.lab05.startedserviceactivity.message";
 
+    final public static String SERVICE = "ro.pub.cs.systems.eim.lab05.startedservice.service.StartedService";
+
+    final public static String SERVICE_APP = "ro.pub.cs.systems.eim.lab05.startedservice";
+
 }

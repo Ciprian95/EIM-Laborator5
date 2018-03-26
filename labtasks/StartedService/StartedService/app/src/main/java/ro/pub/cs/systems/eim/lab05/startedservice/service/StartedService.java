@@ -9,6 +9,44 @@ import ro.pub.cs.systems.eim.lab05.startedservice.general.Constants;
 
 public class StartedService extends Service {
 
+    class ProcessingThread extends Thread {
+        @Override
+        public void run() {
+            super.run();
+            Log.d(Constants.TAG, "Thread.run() was invoked, PID: " + android.os.Process.myPid() + " TID: " + android.os.Process.myTid());
+            while (true) {
+                Intent intent1 = new Intent();
+                intent1.setAction(Constants.ACTION_STRING);
+                intent1.putExtra(Constants.DATA, Constants.STRING_DATA);
+                sendBroadcast(intent1);
+
+                sleep();
+
+                Intent intent2 = new Intent();
+                intent2.setAction(Constants.ACTION_INTEGER);
+                intent2.putExtra(Constants.DATA, Constants.INTEGER_DATA);
+                sendBroadcast(intent2);
+
+                sleep();
+
+                Intent intent3 = new Intent();
+                intent3.setAction(Constants.ACTION_ARRAY_LIST);
+                intent3.putExtra(Constants.DATA, Constants.ARRAY_LIST_DATA);
+                sendBroadcast(intent3);
+
+                sleep();
+            }
+        }
+
+        private void sleep() {
+            try {
+                Thread.sleep(Constants.SLEEP_TIME);
+            } catch (InterruptedException interruptedException) {
+                interruptedException.printStackTrace();
+            }
+        }
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -42,6 +80,9 @@ public class StartedService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(Constants.TAG, "onStartCommand() method was invoked");
         // TODO: exercise 5 - implement and start the ProcessingThread
+        ProcessingThread procThread = new ProcessingThread();
+        procThread.run();
+
         return START_REDELIVER_INTENT;
     }
 
